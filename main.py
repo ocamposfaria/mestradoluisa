@@ -32,7 +32,7 @@ if generate:
   if not pdf:
     st.error('Você precisa subir um PDF antes de fazer isso.')
   else:
-    st.success('Extraindo informações do PDF. Aguarde!')
+    st.success('Extraindo informações do PDF...')
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
 
@@ -45,8 +45,12 @@ if generate:
           idx, response = future.result()
           ai_answers[idx] = response
 
-
 if ai_answers != []:
   df['Resposta do Large Language Model'] = ai_answers
 
+df.index += 1
 st.dataframe(df, use_container_width=True, height=650)
+
+
+
+
