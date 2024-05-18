@@ -8,8 +8,8 @@ df = pd.read_csv('data.csv', delimiter=';')
 
 col01, col02, col03, col04 = st.columns(4)
 
-# with col01:
-  # st.image('image.png')
+with col01:
+  st.image('image.png')
 st.header('Proposta de algoritmo para análise de formulários do CADE com LLM e LangChain')
 
 # st.markdown('----')
@@ -20,7 +20,6 @@ with col11:
 col21, col22, col23, col24 = st.columns(4)
 
 with col21:
-  secret = st.text_input('secret')
   generate = st.button('Gerar respostas do LLM', use_container_width=True)
 
 
@@ -28,11 +27,11 @@ if pdf:
   text = pdf_text_extraction(pdf)
   knowledge_base = load_knowledge_base(text)
 
-if secret == 'desbloquear': 
-  if generate:
-    for i in df['Pergunta'].to_list():
-      response, cb = question_over_vector_database(user_question=i, knowledge_base=knowledge_base)
-      ai_answers += [response]
+
+if generate:
+  for i in df['Pergunta'].to_list():
+    response, cb = question_over_vector_database(user_question=i, knowledge_base=knowledge_base)
+    ai_answers += [response]
 
 if ai_answers != []:
   df['Resposta do Large Language Model'] = ai_answers
