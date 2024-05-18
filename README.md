@@ -1,6 +1,9 @@
 ## Aplicativo para análise de formulários de decisões 
 ### Proposta de algoritmo para implementação em sistema do CADE **[NÃO OFICIAL]**
 
+Hospedado em:
+https://mestrado-luisa.streamlit.app/
+
 ### Resumo
 Esse repositório contém um aplicativo em Streamlit que analisa formulários de decisões do Conselho Administrativo de Defesa Econômica (CADE) para extrair informações neles contidas. Trata-se de 17 perguntas levantadas, a serem respondidas por um Large Language Model (provisoriamente, Chat GPT 3.5), e assim tornar mais rápida a classificação desses formulários de decisões, para o fim de agilizar processos do órgão.
 
