@@ -11,7 +11,7 @@ O algoritmo, no momento, encontra-se na forma de uma aplicação web desenvolvid
 
 ### Preview
 
-Visualize um preview da página abaixo.
+Visualize um preview da página, abaixo.
 
 ![alt text](image-1.png)
 
