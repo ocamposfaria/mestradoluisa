@@ -29,10 +29,13 @@ if pdf:
 
 
 if generate:
-  for i in df['Pergunta'].to_list():
-    response, cb = question_over_vector_database(user_question=i, knowledge_base=knowledge_base)
-    ai_answers += [response]
-
+  if not pdf:
+    st.error('Você precisa subir um PDF antes de fazer isso.')
+  else:
+    st.success('Extraindo informações do PDF. Aguarde!')
+    for i in df['Pergunta'].to_list():
+      response, cb = question_over_vector_database(user_question=i, knowledge_base=knowledge_base)
+      ai_answers += [response]
 if ai_answers != []:
   df['Resposta do Large Language Model'] = ai_answers
 
