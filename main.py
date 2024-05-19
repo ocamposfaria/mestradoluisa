@@ -11,7 +11,7 @@ col01, col02, col03, col04 = st.columns(4)
 
 with col01:
   st.image('image.png')
-st.header('Proposta de algoritmo para análise de formulários do CADE com LLM e LangChain')
+st.header('Proposta de algoritmo para análise de formulários do CADE com Large Language Model (LLM)')
 
 col11, col12, col13, col14 = st.columns(4)
 with col11:
@@ -46,7 +46,7 @@ if generate:
           ai_answers[idx] = response
 
 if ai_answers != []:
-  df['Resposta do Large Language Model'] = ai_answers
+  df['Resposta do LLM'] = ai_answers
 
 df.index += 1
 st.dataframe(df, use_container_width=True, height=650)
