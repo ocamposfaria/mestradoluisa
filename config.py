@@ -17,7 +17,7 @@ config_params = {
     "TEXT_CHUNK_OVERLAP": 0,
     "MODEL_MAX_TOKENS": -1,
     "MODEL_TEMPERATURE": 0,
-    "CONTEXTO": "Você irá responder as perguntas de um usuário sobre arquivos PDF. Responda objetivamente"
+    "CONTEXTO": "Você irá responder as perguntas de um usuário sobre arquivos PDF."
 }
 
 def pdf_text_extraction(pdf: str) -> str:

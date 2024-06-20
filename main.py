@@ -1,56 +1,101 @@
 import streamlit as st
-import pandas as pd 
-import concurrent.futures
 from config import *
 
-st.set_page_config(layout="wide")
-df = pd.read_csv('data.csv', delimiter=';')
-ai_answers = [None] * len(df['Pergunta'])
+pdf = False
+is_file_valid = False
 
-col01, col02, col03, col04 = st.columns(4)
+st.image('image.png')
 
-with col01:
-  st.image('image.png')
-st.header('Proposta de algoritmo para análise de formulários do CADE com Large Language Model (LLM)')
+st.markdown('### Proposta de Sistema para Decisões Automatizadas')
 
-col11, col12, col13, col14 = st.columns(4)
-with col11:
-  pdf = st.file_uploader("suba o arquivo PDF aqui", type="pdf", label_visibility='hidden')
+st.markdown('---')
 
-col21, col22, col23, col24 = st.columns(4)
+css='''
+<style>
+[data-testid="stFileUploaderDropzone"] div div::before {content:"Clique aqui para importar seu formulário."}
+[data-testid="stFileUploaderDropzone"] div div span{display:none;}
+[data-testid="stFileUploaderDropzone"] div div::after {font-size: .8em; content:"Ele precisa ser um PDF que contenha textos."}
+[data-testid="stFileUploaderDropzone"] div div small{display:none;}
+[data-testid="stFileUploaderDropzone"] button{display:none;}
+.block-container {
+    padding-top: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+</style>
+'''
 
-with col21:
-  generate = st.button('Gerar respostas do LLM', use_container_width=True)
-
-
-if pdf:
-  text = pdf_text_extraction(pdf)
-  knowledge_base = load_knowledge_base(text)
-
-
-if generate:
-  if not pdf:
-    st.error('Você precisa subir um PDF antes de fazer isso.')
-  else:
-    st.success('Extraindo informações do PDF...')
-    
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-
-        future_to_index = {
-            executor.submit(lambda idx, i: (idx, question_over_vector_database(user_question=i, knowledge_base=knowledge_base)[0]), idx, i): idx
-            for idx, i in enumerate(df['Pergunta'].to_list())
-        }
-        
-        for future in concurrent.futures.as_completed(future_to_index):
-          idx, response = future.result()
-          ai_answers[idx] = response
-
-if ai_answers != []:
-  df['Resposta do LLM'] = ai_answers
-
-df.index += 1
-st.dataframe(df, use_container_width=True, height=650)
+st.markdown(css, unsafe_allow_html=True)
 
 
+if not pdf:
+  pdf = st.file_uploader(label=" ")
 
+  col11, col12, col13 = st.columns(3)
+  
+  with col12:
+    run_button = st.button('Gerar decisão', use_container_width=True)
 
+if not pdf and run_button:
+  st.error('Você precisa subir um PDF antes de fazer isso.')
+
+if pdf and run_button:
+    st.success('Trabalhando, aguarde...')
+
+    st.session_state['respostas'] = {}
+    text = pdf_text_extraction(pdf)
+    knowledge_base = load_knowledge_base(text)
+
+    resposta1 = question_over_vector_database('Você é um assistente do CADE, e precisa passar informações a um operador. A partir do formulário que eu enviei, descreva em detalhes (até 10 linhas) a descrição da operação. Na sua reposta, cite as requerentes, e o fim que pretendem atingir com a operação.', knowledge_base)[0]
+    st.session_state['respostas']['resposta1'] = resposta1
+
+    resposta2 = question_over_vector_database("""Você é um assistente do CADE, e precisa passar informações a um operador. Preciso que você analise os seguintes critérios e escreva um texto de 20 linhas ou mais, com base no formulário que eu te enviei. Ao final, responda se a operação pode ser aprovada.
+      - Justificativa estratégica e econômica para a operação;
+      - Natureza da operação;
+      - Abrangência das atividades das partes; (pode ser total, parcial ou não se aplica)
+      - Se é aquisição de ativos, aquisição de participação societária, e/ou joint venture;
+      - Se houve notificações em outras jurisdições; (Sim ou Não)
+      - Se há cláusula de não concorrência; (Sim ou Não)
+      - Definição dos mercados relevantes afetados sob as dimensões de produto e geográfica, descrevendo detalhadamente os produtos fornecidos bem como as localidades (cidade, estado, bairro ou país) onde são fornecidos;
+      - Grau (percentual aproximado) substitutibilidade dos produtos;
+      - Existência de sobreposição horizontal e grau aproximado em percentual (se houver o mesmo produto oferecido na mesma localidade);
+      - Existe integração vertical e grau aproximado em percentual (se houver o fornecimento de serviços complementares numa mesma localidade);
+      - Suas observações finais.
+    No final, formate o texto para uma leitura em texto corrido, evite a estrutura de tópicos.""", knowledge_base)[0]
+    st.session_state['respostas']['resposta2'] = resposta2
+
+    resposta3 = question_over_vector_database(f"""Com base no texto a seguir, escreva se a operação pode ou não ser aprovada sem restrições, ou se merece melhor análise: {resposta2}""", knowledge_base)[0]
+    st.session_state['respostas']['resposta3'] = resposta3
+
+if pdf and 'respostas' in st.session_state:
+
+    st.markdown('---')
+
+    st.markdown('### Descrição da operação')
+
+    st.markdown(st.session_state['respostas']['resposta1'])
+
+    st.markdown('### Considerações sobre a operação')
+
+    st.markdown(st.session_state['respostas']['resposta2'])
+
+    st.markdown('### Conclusão')
+
+    st.markdown(st.session_state['respostas']['resposta3'])
+
+    st.markdown('---')
+
+    st.markdown('### Envie seu feedback')
+
+    with st.form(key='my_form'):
+      feedback_slider = st.select_slider("Com uma nota de 0 a 10, avalie a decisão gerada automaticamente", options=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+      
+      feedback_text = st.text_area('Utilize o espaço abaixo para tecer comentários e/ou sugerir melhorias')
+
+      col21, col22, col23 = st.columns(3)
+      
+      with col22:
+        feedbacks_button = st.form_submit_button('Enviar feedback', use_container_width=True)
+
+        if feedbacks_button:
+          print('criar aqui uma forma de salvar feedbacks')
