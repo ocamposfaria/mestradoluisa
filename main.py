@@ -88,7 +88,7 @@ if pdf and 'respostas' in st.session_state:
     st.markdown('### Envie seu feedback')
 
     with st.form(key='my_form'):
-      feedback_slider = st.select_slider("Com uma nota de 0 a 10, avalie a decisão gerada automaticamente", options=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+      feedback_slider = st.select_slider("Com uma nota de 1 a 10, avalie a decisão gerada automaticamente", options=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
       
       feedback_text = st.text_area('Utilize o espaço abaixo para tecer comentários e/ou sugerir melhorias')
 
