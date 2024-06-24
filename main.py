@@ -43,7 +43,11 @@ if pdf and run_button:
     st.success('Trabalhando, aguarde...')
 
     st.session_state['respostas'] = {}
+    
     text = pdf_text_extraction(pdf)
+    
+    st.session_state['original_decision'] = text
+
     knowledge_base = load_knowledge_base(text)
 
     resposta1 = question_over_vector_database('Você é um assistente do CADE, e precisa passar informações a um operador. A partir do formulário que eu enviei, descreva em detalhes (até 10 linhas) a descrição da operação. Na sua reposta, cite as requerentes, e o fim que pretendem atingir com a operação.', knowledge_base)[0]
@@ -96,7 +100,11 @@ if pdf and 'respostas' in st.session_state:
       
       with col22:
         feedbacks_button = st.form_submit_button('Enviar feedback', use_container_width=True)
+        original_decision = st.session_state['original_decision']
+        ai_description = st.session_state['respostas']['resposta1']
+        ai_considerations = st.session_state['respostas']['resposta2']
+        ai_conclusion = st.session_state['respostas']['resposta3']
 
       if feedbacks_button:
-        insert_feedback(feedback_slider, feedback_text)
+        insert_feedback(feedback_slider, feedback_text, original_decision, ai_description, ai_considerations, ai_conclusion)
         st.success('Feedback enviado com sucesso!')

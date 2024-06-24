@@ -101,22 +101,26 @@ def question_over_vector_database(
     
     return response, cb
 
-def insert_feedback(feedback_slider, feedback_text):
+def insert_feedback(feedback_slider, feedback_text, original_decision, ai_description, ai_considerations, ai_conclusion):
     conn = duckdb.connect('feedback.db')
     
     conn.execute('''
     CREATE TABLE IF NOT EXISTS feedbacks (
         feedback_slider INTEGER,
         feedback_text TEXT,
-        timestamp TIMESTAMP
+        timestamp TIMESTAMP,
+        original_decision TEXT,
+        ai_description TEXT, 
+        ai_considerations TEXT, 
+        ai_conclusion TEXT
     )
     ''')
     
     current_timestamp = datetime.now()
     
     conn.execute('''
-    INSERT INTO feedbacks (feedback_slider, feedback_text, timestamp)
-    VALUES (?, ?, ?)
-    ''', (feedback_slider, feedback_text, current_timestamp))
+    INSERT INTO feedbacks (feedback_slider, feedback_text, timestamp, original_decision, ai_description, ai_considerations, ai_conclusion)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    ''', (feedback_slider, feedback_text, current_timestamp, original_decision, ai_description, ai_considerations, ai_conclusion))
     
     conn.close()
