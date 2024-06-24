@@ -9,6 +9,8 @@ from pandas import DataFrame
 from langchain.chains.qa_with_sources.vector_db import VectorDBQAWithSourcesChain
 from langchain.chains.question_answering.chain import load_qa_chain
 from langchain.callbacks import get_openai_callback
+import duckdb
+from datetime import datetime
 
 load_dotenv()
 
@@ -98,3 +100,23 @@ def question_over_vector_database(
         response = chain.run(input_documents=docs, context=context, question=user_question)
     
     return response, cb
+
+def insert_feedback(feedback_slider, feedback_text):
+    conn = duckdb.connect('feedback.db')
+    
+    conn.execute('''
+    CREATE TABLE IF NOT EXISTS feedbacks (
+        feedback_slider INTEGER,
+        feedback_text TEXT,
+        timestamp TIMESTAMP
+    )
+    ''')
+    
+    current_timestamp = datetime.now()
+    
+    conn.execute('''
+    INSERT INTO feedbacks (feedback_slider, feedback_text, timestamp)
+    VALUES (?, ?, ?)
+    ''', (feedback_slider, feedback_text, current_timestamp))
+    
+    conn.close()

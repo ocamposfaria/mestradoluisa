@@ -97,5 +97,6 @@ if pdf and 'respostas' in st.session_state:
       with col22:
         feedbacks_button = st.form_submit_button('Enviar feedback', use_container_width=True)
 
-        if feedbacks_button:
-          print('criar aqui uma forma de salvar feedbacks')
+      if feedbacks_button:
+        insert_feedback(feedback_slider, feedback_text)
+        st.success('Feedback enviado com sucesso!')
