@@ -44,7 +44,8 @@ Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para 
 │   
 ├───images
 │       image-1.png
-│       image-2.png    
+│       image-2.png
+│       image-3.png 
 └───venv
 ```
 
