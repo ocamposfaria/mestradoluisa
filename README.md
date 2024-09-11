@@ -112,13 +112,13 @@ CMD ["streamlit", "run", "main.py"]
 1. Construa a imagem Docker:
 
     ```bash
-    docker build -t esse-projeto .
+    docker build -t mestradoluisa .
     ```
 
 2. Execute o contêiner:
 
     ```bash
-    docker run -p 8501:8501 esse-projeto
+    docker run -p 8501:8501 mestradoluisa
     ```
 
 3. Acesse o sistema em: `http://localhost:8501` e comece a interagir com a interface.
