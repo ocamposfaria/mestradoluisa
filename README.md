@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/LangChain-0.0.5-orange?logo=langchain" alt="LangChain">
 </p>
 
-Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para processar documentos PDF e gerar respostas automáticas com base em um modelo de tomada de decisões. A arquitetura do sistema é ilustrada na imagem acima, que descreve como o sistema processa as entradas e gera as respostas finais.
+Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para processar documentos PDF e gerar respostas automáticas com base em um modelo de tomada de decisões. 
 
 ## Funcionalidades
 
