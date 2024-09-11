@@ -69,8 +69,8 @@ Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para 
 1. Clone o repositório para sua máquina local:
 
     ```bash
-    git clone https://github.com/seu-usuario/seu-projeto.git
-    cd seu-projeto
+    git clone https://github.com/ocamposfaria/mestradoluisa.git
+    cd mestradoluisa
     ```
 
 2. Instale as dependências:
