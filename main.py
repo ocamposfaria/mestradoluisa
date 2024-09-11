@@ -4,7 +4,7 @@ from config import *
 pdf = False
 is_file_valid = False
 
-st.image('image.png')
+st.image('images/image-1.png')
 
 st.markdown('### Proposta de Sistema para Decisões Automatizadas')
 
