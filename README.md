@@ -3,7 +3,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.8%2B-blue?logo=python" alt="Python">
   <img src="https://img.shields.io/badge/Streamlit-1.18.1-red?logo=streamlit" alt="Streamlit">
-  <img src="https://img.shields.io/badge/OpenAI-API-lightgray?logo=openai" alt="OpenAI">
+  <img src="https://img.shields.io/badge/OpenAI-API-brightgreen?logo=openai" alt="OpenAI">
   <img src="https://img.shields.io/badge/LangChain-0.0.5-purple?logo=langchain" alt="LangChain">
 </p>
 
