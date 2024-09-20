@@ -10,6 +10,18 @@ st.markdown('### Proposta de Sistema para Decisões Automatizadas')
 
 st.markdown('---')
 
+st.markdown("""
+**Bem-vindo(a)!**
+
+Este sistema foi desenvolvido para ajudar na análise e tomada de decisões com base em documentos PDF. Siga os passos abaixo para utilizar a aplicação:
+
+1. **Suba um PDF**: Utilize a interface abaixo para enviar o documento que será analisado.
+2. **Receba Respostas Automatizadas**: Após o envio, o sistema processará o conteúdo e fornecerá uma descrição detalhada da operação, considerações relevantes e uma conclusão preliminar.
+3. **Dê seu Feedback**: Avalie a precisão da resposta gerada e contribua com comentários para melhorar o modelo.
+""")
+
+st.markdown('---')
+
 css='''
 <style>
 [data-testid="stFileUploaderDropzone"] div div::before {content:"Clique aqui para importar seu formulário."}
