@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/LangChain-0.2.0-orange?logo=langchain" alt="LangChain">
 </p>
 
-Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para processar documentos PDF e gerar respostas automáticas com base em um modelo de tomada de decisões. A arquitetura do sistema é ilustrada na imagem acima, que descreve como o sistema processa as entradas e gera as respostas finais.
+Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para processar documentos PDF e gerar respostas automáticas com base em um modelo de tomada de decisões. 
 
 ## Funcionalidades
 
@@ -44,7 +44,8 @@ Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para 
 │   
 ├───images
 │       image-1.png
-│       image-2.png    
+│       image-2.png
+│       image-3.png 
 └───venv
 ```
 
@@ -68,8 +69,8 @@ Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para 
 1. Clone o repositório para sua máquina local:
 
     ```bash
-    git clone https://github.com/seu-usuario/seu-projeto.git
-    cd seu-projeto
+    git clone https://github.com/ocamposfaria/mestradoluisa.git
+    cd mestradoluisa
     ```
 
 2. Instale as dependências:
@@ -111,13 +112,13 @@ CMD ["streamlit", "run", "main.py"]
 1. Construa a imagem Docker:
 
     ```bash
-    docker build -t seu-projeto .
+    docker build -t mestradoluisa .
     ```
 
 2. Execute o contêiner:
 
     ```bash
-    docker run -p 8501:8501 seu-projeto
+    docker run -p 8501:8501 mestradoluisa
     ```
 
 3. Acesse o sistema em: `http://localhost:8501` e comece a interagir com a interface.
