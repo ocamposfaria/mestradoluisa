@@ -37,22 +37,22 @@ Este projeto utiliza **Python**, **Streamlit**, **OpenAI** e **LangChain** para 
 ```
 │   .gitignore
 │   config.py
-│   config.toml
 │   main.py
 │   README.md
 │   requirements.txt
-│   
+│
+├───.streamlit
+│       config.toml
 ├───images
 │       image-1.png
 │       image-2.png
 │       image-3.png 
-└───venv
+
 ```
 
 - **main.py**: Arquivo principal que executa a aplicação Streamlit.
 - **config.py** e **config.toml**: Arquivos de configuração do sistema.
 - **images/**: Diretório contendo as imagens usadas no projeto.
-- **venv/**: Ambiente virtual para isolamento das dependências do projeto.
 
 ## Instalação e Execução
 
